@@ -34,6 +34,7 @@ public class RequestParamServlet extends HttpServlet {
         String age = req.getParameter("age");
         System.out.println("age = " + age);
 
+        System.out.println("[이름이 같은 복수 파라미터]");
         String[] usernames = req.getParameterValues("username");
         Arrays.stream(usernames).forEach(System.out::println);
 
