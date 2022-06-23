@@ -23,3 +23,7 @@ Content-Type: application/json
   "age" : 32,
   "username" : "moon"
 }
+
+###
+POST http://localhost:8080/response-header
+Content-Type: application/json
