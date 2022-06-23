@@ -9,4 +9,17 @@ Content-Type: text/plain
 
 hello!
 
+###
+POST http://localhost:8080/request-body-string
+Content-Type: text/plain
 
+hello!
+
+###
+POST http://localhost:8080/request-body-json
+Content-Type: application/json
+
+{
+  "age" : 32,
+  "username" : "moon"
+}
