@@ -2,7 +2,9 @@ package hello.servlet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
+@ServletComponentScan // 서블릿 빈을 자동 등록 (hello.servlet)
 @SpringBootApplication
 public class ServletApplication {
 
