@@ -39,3 +39,6 @@
 2. 뷰 경로를 사용하는 중복 코드 제거
    - "/WEB-INF/views/members" 제거
 3. modelView 생성
+
+### 프론트 컨트롤러 도입 v4
+- modelView 를 반환하지 않고 ViewName 만 반환한다.
