@@ -33,3 +33,9 @@
 
 1. 뷰 렌더의 역할을 가진 객체를 생성했다.
 
+### 프론트 컨트롤러 도입 v3
+1. 컨트롤러 입장에서 필요없는 HttpServletRequest, HttpServletResponse 를 제거하고 Map 으로 파라미터를 받는다.
+   - 뷰 렌더의 책임을 MyView 로 옮겼으므로 컨트롤러에서 request 와 response 를 사용하지 않는다.
+2. 뷰 경로를 사용하는 중복 코드 제거
+   - "/WEB-INF/views/members" 제거
+3. modelView 생성
