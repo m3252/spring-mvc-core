@@ -13,6 +13,6 @@ public class OldSpringController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("OldSpringController.handleRequest");
-        return null;
+        return new ModelAndView("new-form");
     }
 }

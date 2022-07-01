@@ -123,7 +123,7 @@ protected void render(ModelAndView mv, HttpServletRequest request,
 
 ## 핸들러 매핑과 핸들러 어댑터
 
-#### DispatcherServlet 의 조회 순서
+### DispatcherServlet 의 조회 순서
 1. 핸들러 매핑으로 핸들러 조회
    1. RequestMappingHandlerMapping (애노테이션 기반)
    2. BeanNameUrlHandlerMapping (스프링 빈 이름 기반)
@@ -146,3 +146,20 @@ OldSpringController 에서 사용되는 객체는 (HandlerMapping) BeanNameUrlHa
 
 ### MyHttpRequestHandler
 MyHttpRequestHandler 에서 사용되는 객체는 (HandlerMapping) BeanNameUrlHandlerMapping 과 (HandlerAdapter) HttpRequestHandlerAdapter 가 있다.
+
+---
+
+
+## 뷰 리졸버
+
+스프링 부트는 InternalResourceViewResolver 라는 뷰 리졸버를 자동으로 등록하는데, 이때 스프링 프로퍼티스 에 등록한 spring.mvc.view.prefix=/WEB-INF/views/, spring.mvc.view.suffix=.jsp 정보를 사용한다.
+
+```java
+@Bean
+InternalResourceViewResolver internalResourceViewResolver() {
+    return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+}
+```
+
+- BeanNameViewResolver : 빈 이름으로 뷰를 찾아서 반환 (엑셀 등등)
+- InternalResourceViewResolver : JSP 를 처리할 수 있는 뷰 반환
