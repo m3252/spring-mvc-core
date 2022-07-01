@@ -52,7 +52,7 @@
 
 > 프론트 컨트롤러 패턴으로 만들어진 스프링 프레임워크의 Servlet 이다. 부모 클래스에서 HttpServlet 을 상속 받고 있으며, 서블릿으로 동작한다.
 
-![img.png](img.png)
+![img.png](img.png)  
 [더 자세한 경로가 높은 우선순위를 가지기 때문에 기존에 등록한 서블릿도 함께 동작한다.]()
 
 - 스프링 부트는 DispatcherServlet 을 서블릿으로 자동으로 등록하며 모든 경로 (urlPatterns="/") 에 대해서 매핑한다.
@@ -118,3 +118,31 @@ protected void render(ModelAndView mv, HttpServletRequest request,
 7. View반환: 뷰 리졸버는 뷰의 논리 이름을 물리 이름으로 바꾸고, 렌더링 역할을 담당하는 뷰 객체를 반환한다.
    - JSP의 경우 InternalResourceView(JstlView) 를 반환하는데, 내부에 forward() 로직이 있다.
 8. 뷰 렌더링: 뷰를 통해서 뷰를 렌더링 한다.
+
+--- 
+
+## 핸들러 매핑과 핸들러 어댑터
+
+#### DispatcherServlet 의 조회 순서
+1. 핸들러 매핑으로 핸들러 조회
+   1. RequestMappingHandlerMapping (애노테이션 기반)
+   2. BeanNameUrlHandlerMapping (스프링 빈 이름 기반)
+2. 핸들러 어댑터 조회
+   1. RequestMappingHandlerAdapter (애노테이션 기반의 컨트롤러 : @RequestMapping)
+   2. HttpRequestHandlerAdapter (HttpRequestHandler) 처리
+   3. SimpleControllerHandlerAdapter (org.springframework.web.servlet.mvc.Controller 인터페이스 처리) 
+3. 핸들러 어댑터 실행
+
+### OldSpringController
+OldSpringController 에서 사용되는 객체는 (HandlerMapping) BeanNameUrlHandlerMapping 과 (HandlerAdapter) SimpleControllerHandlerAdapter 가 있다.
+
+1. HandlerMapping 을 순서대로 실행해서 핸들러를 찾는다.
+   - BeanNameUrlHandlerMapping 가 실행에 성공하고 해당 핸들러인 OldSpringController 를 반환
+2. HandlerAdapter 의 supports() 를 순서대로 호출한다.
+   - SimpleControllerHandlerAdapter 가 Controller 를 지원하므로 대상에 해당함
+3. DispatcherServlet 이 조회한 SimpleControllerHandlerAdapter 를 실행하면서 핸들러 정보도 함께 넘겨준다.
+   - SimpleControllerHandlerAdapter 는 핸들러인 OldSpringController 를 내부에서 실행하고, 그 결과를 반환
+
+
+### MyHttpRequestHandler
+MyHttpRequestHandler 에서 사용되는 객체는 (HandlerMapping) BeanNameUrlHandlerMapping 과 (HandlerAdapter) HttpRequestHandlerAdapter 가 있다.
